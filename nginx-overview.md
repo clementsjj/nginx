@@ -1,0 +1,4 @@
+- `/etc/nginx` is where most of the configuration is going to happen.
+- `nginx.conf` is out main server configuration
+- virtual hosts go in `conf.d` directory as `.conf` files
+- 
