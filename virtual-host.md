@@ -45,6 +45,30 @@
 - `curl --header "Host: example.com" localhost`
 
 ### Error Pages
+- Add to default.conf:
+        server {
+          ...
+          error_page 404 /404.html;
+          error_page 500 501 502 503 504 /50x.html;
+        }
+
+### Access Control with HTTP Basic Auth
+- Add to default.conf:
+        server {
+          ...
+          location = /admin.html {
+            auth_basic "Login Required";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+          }
+        }
+- `yum install httpd-tools`
+- `htpasswd -c /etc/nginx/.htpasswd admin`
+  - enter password for admin
+- `nginx -t`
+- `systemctl reload nginx`
+- `curl localhost/admin.html`
+  - Forbidden
+- `curl -u admin:password localhost/admin.html`
 
 
 ## Notes
