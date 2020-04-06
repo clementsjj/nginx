@@ -64,6 +64,8 @@
         systemctl enable web-client
 
 ### http_proxy_module
+### With
+### proxy_pass
 
 - `/etc/nginx/conf.d/phones.example.com.conf`  
 
