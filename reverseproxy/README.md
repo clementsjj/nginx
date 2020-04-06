@@ -8,6 +8,7 @@
 - `cd s3photoshop`
 - `make install`
 - `/etc/systemd/system/photo-filter.service
+
         [Unit]
         Description=photo-filter Node.js service
         After=network.target
@@ -22,6 +23,7 @@
         [Install]
         WantedBy=multi-user.target
 - `/etc/systemd/system/photo-storage.service`
+
         [Unit]
         Description=photo-storage Node.js service
         After=network.target
@@ -37,7 +39,8 @@
 
         [Install]
         WantedBy=multi-user.target
-- `/etc/systemd/system/web=client.service`
+- `/etc/systemd/system/web=client.service`  
+
         [Unit]
         Description=S3 Photo App Node.js service
         After=network.target photo-filter.target photo-storage.target
@@ -62,7 +65,8 @@
 
 ### http_proxy_module
 
-- `/etc/nginx/conf.d/phones.example.com.conf`
+- `/etc/nginx/conf.d/phones.example.com.conf`  
+
         server {     
           listen 80;     
           server_name photos.example.com;      
@@ -79,13 +83,14 @@
           }
 - `nginx -t`
 - `systemctl reload nginx`
-- `curl --header "Host: photos.example.com" localhost
+- `curl --header "Host: photos.example.com" localhost`
 - less `/var/log/nginx/error.log`
 - `setsebool -P httpd_can_network_connect 1`
-- `curl --header "Host: photos.example.com" localhost
-- ` /etc/nginx/conf.d/photos.example.con`
+- `curl --header "Host: photos.example.com" localhost`
+- ` /etc/nginx/conf.d/photos.example.com`
+
         server {
-          ...
+        ...
         # ~ means regex, * means case insensitive
           location ~* \.(js|css|png|jpe?g|gif) {
             root /var/www/photos.example.com;
@@ -97,7 +102,7 @@
   - get 403 for grabbing some files on browser
 - `semanage fcontext -a -t httpd_sys_content_t '/srv/www/.*/public(/.*)?'`
 - `restorecon -R -v /var/www`
-- `/etc/nginx/conf.d/photos.example.com.conf`
+- `/etc/nginx/conf.d/photos.example.com.conf` .
          server {
           ...
           client_max_body_size 5m;
