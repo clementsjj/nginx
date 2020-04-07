@@ -40,4 +40,28 @@ Database Password: p@ssw0rd
 - `systemctl enamble notes.uwsgi`
 
 ### Proxying to uSWSGI Python Web App with `uwsgi_pass`
-- 
+- `vim /etc/nginx/conf.d/notes.example.com.conf`
+
+        server {
+            listen 80;
+            server_name notes.example.com;
+
+            location /static {
+               root /var/www/notes.example.com;
+            }
+
+            location / {
+                include uwsgi_params;
+                uwsgi_pass unix:/var/run/uwsgi/notes.sock;
+            }
+        }
+- `cd /etc/nginx`
+- `semanage permissive -a httpd_t`
+- `systemctl reload nginx`
+- `curl --header "Host: notes.example.com" localhost`
+- `grep nginx /var/log/audit/audit.log | audit2allow -m nginx`
+- `semanage permissive -d httpd_t`
+- `semodule -i nginx.pp`
+- `semodule -e nginx`
+- `restorecon -Rv /var/run/uwsgi/`
+
