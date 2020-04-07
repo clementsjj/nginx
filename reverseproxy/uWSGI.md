@@ -5,7 +5,7 @@ Alternative to FastCGI
 ############################  
 Database Name: django_notes
 Database User: notes
-Database Password: p@ssw0rd
+Database Password: p@ssw0rd  
 ############################  
 
 - `yum install python36 python36-devel`
